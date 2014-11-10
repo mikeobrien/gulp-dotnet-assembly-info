@@ -12,7 +12,7 @@ $ npm install gulp-dotnet-assembly-info --save
 
 ## Usage
 
-Simply pass in an object containing the attibutes and their replacements. The replacement can be a value or a function. A function is passed the value specified in the original assembly info file and returns the replacement value. The convention for attribute names is the name without the `Assembly` prefix and [camel cased](http://en.wikipedia.org/wiki/CamelCase). So an attribute name of `title` will be formatted as `AssemblyTitle`. The files can simply be replaced by piping them to a the same location (`.pipe(gulp.dest('.'))`) or to a new location.
+Simply pass in an object containing the attibutes and their replacements. The replacement can be a value or a function. A function is passed the value specified in the original assembly info file and returns the replacement value. The convention for attribute names is the name without the `Assembly` prefix and [camel cased](http://en.wikipedia.org/wiki/CamelCase). So an attribute name of `fileVersion` will be converted to `AssemblyFileVersion`. The files can simply be replaced by piping them to the same location (`.pipe(gulp.dest('.'))`) or to a new location.
 
 ```js
 var gulp = require('gulp'),
@@ -30,7 +30,8 @@ gulp.task('assemblyInfo', function() {
             trademark: 'Planet Express', 
             culture: 'div-MV',
             version: function(value) { return value + '.2345'; },
-            fileVersion: function(value) { return '2.0.3.2345'; }
+            fileVersion: function(value) { return '2.0.3.2345'; },
+            ...
         }))
         .pipe(gulp.dest('.'));
 });
