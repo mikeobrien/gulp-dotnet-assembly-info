@@ -1,4 +1,4 @@
-# grunt-dotnet-assembly-info
+# gulp-dotnet-assembly-info
 [![Build Status](https://api.travis-ci.org/mikeobrien/gulp-dotnet-assembly-info.png?branch=master)](https://travis-ci.org/mikeobrien/gulp-dotnet-assembly-info)
 [![NPM version](https://badge.fury.io/js/gulp-dotnet-assembly-info.png)](https://npmjs.org/package/gulp-dotnet-assembly-info)
 
