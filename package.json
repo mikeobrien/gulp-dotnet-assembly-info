@@ -1,6 +1,6 @@
 {
   "name": "gulp-dotnet-assembly-info",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Gulp plugin for editing .NET assembly info files.",
   "homepage": "https://github.com/mikeobrien/gulp-dotnet-assembly-info",
   "main": "index.js",
@@ -36,6 +36,7 @@
     "gulp-filter": "~1.0.2",
     "vinyl": "~0.4.3",
     "through2": "~0.6.3",
-    "gulp-util": "~3.0.1"
+    "gulp-util": "~3.0.1",
+    "handlebars": "~2.0.0"
   }
 }
