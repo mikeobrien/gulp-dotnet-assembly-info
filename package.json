@@ -1,0 +1,40 @@
+{
+  "name": "gulp-dotnet-assembly-info",
+  "version": "1.0.0",
+  "description": "Gulp plugin for editing .NET assembly info files.",
+  "homepage": "https://github.com/mikeobrien/gulp-dotnet-assembly-info",
+  "main": "index.js",
+  "bugs": {
+    "url": "https://github.com/mikeobrien/gulp-dotnet-assembly-info/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mikeobrien/gulp-dotnet-assembly-info.git"
+  },
+  "keywords": [
+    ".net",
+    "dotnet",
+    "assembly"
+  ],
+  "scripts": {
+    "test": "gulp"
+  },
+  "author": "Mike O'Brien",
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "files": [
+    "index.js",
+    "README.md",
+    "LICENSE"
+  ],
+  "devDependencies": {
+    "expect.js": "~0.3.1",
+    "gulp-mocha": "~1.1.1",
+    "gulp-jshint": "~1.9.0",
+    "gulp": "~3.8.10",
+    "gulp-filter": "~1.0.2",
+    "vinyl": "~0.4.3",
+    "through2": "~0.6.3",
+    "gulp-util": "~3.0.1"
+  }
+}
