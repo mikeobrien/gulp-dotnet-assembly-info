@@ -34,11 +34,11 @@ function assemblyInfo(config) {
             attributes.forEach(function(attribute) {
                 var attributeName = 'Assembly' + capitalize(attribute);
                 var regex = new RegExp('(\\[\\s*?assembly\\s*\\:\\s*' + attributeName + '\\s*\\(\\s*\\")(.*?)(\\"\\s*\\)\\s*\\])', 'g');
-                var value = config[attribute];
+                var replacement = config[attribute];
                 assemblyInfo = assemblyInfo.replace(regex, function(match, p1, p2, p3) {
-                    var replacement = p1 + (value instanceof Function ? value(p2) : value) + p3;
-                    gulp.log('\tSetting attribute \'' + attributeName + '\' to \'' + replacement + '\'.');
-                    return replacement;
+                    var value = replacement instanceof Function ? replacement(p2) : replacement;
+                    gulp.log('\tSetting attribute \'' + attributeName + '\' to \'' + value + '\'.');
+                    return p1 + value + p3;
                 });
             });
             file.contents = new Buffer(assemblyInfo);
