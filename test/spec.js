@@ -2,7 +2,7 @@ var expect = require('expect.js'),
     File = require('vinyl'),
     Handlebars = require('handlebars'),
     PluginError = require('gulp-util').PluginError,
-    assemblyInfo = require('../index.js');
+    assemblyInfo = require('../plugin.js');
 
 describe('gulp-dotnet-assembly-info', function() {
 
