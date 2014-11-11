@@ -36,9 +36,10 @@ function assemblyInfo(config) {
                 var regex = new RegExp('(\\[\\s*?assembly\\s*\\:\\s*' + attributeName + '\\s*\\(\\s*\\")(.*?)(\\"\\s*\\)\\s*\\])', 'g');
                 var value = config[attribute];
                 assemblyInfo = assemblyInfo.replace(regex, function(match, p1, p2, p3) {
-                    var replacement = p1 + (value instanceof Function ? value(p2) : value) + p3; });
+                    var replacement = p1 + (value instanceof Function ? value(p2) : value) + p3;
                     gulp.log('\tSetting attribute \'' + attributeName + '\' to \'' + replacement + '\'.');
                     return replacement;
+                });
             });
             file.contents = new Buffer(assemblyInfo);
         }
