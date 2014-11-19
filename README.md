@@ -1,7 +1,7 @@
 # gulp-dotnet-assembly-info
 
 
-[![npm version](http://img.shields.io/npm/v/gulp-dotnet-assembly-info.svg)](https://npmjs.org/package/gulp-dotnet-assembly-info) [![build status](http://img.shields.io/travis/mikeobrien/gulp-dotnet-assembly-info.svg)](https://travis-ci.org/mikeobrien/gulp-dotnet-assembly-info)
+[![npm version](http://img.shields.io/npm/v/gulp-dotnet-assembly-info.svg)](https://npmjs.org/package/gulp-dotnet-assembly-info) [![build status](http://img.shields.io/travis/mikeobrien/gulp-dotnet-assembly-info.svg)](https://travis-ci.org/mikeobrien/gulp-dotnet-assembly-info) [![Dependency Status](http://img.shields.io/david/mikeobrien/gulp-dotnet-assembly-info.svg)](https://david-dm.org/mikeobrien/gulp-dotnet-assembly-info) [![npm downloads](http://img.shields.io/npm/dm/gulp-dotnet-assembly-info.svg)](https://npmjs.org/package/gulp-dotnet-assembly-info)
 
 [Gulp](http://gulpjs.com/) plugin for modifying C# assembly info files.
 
