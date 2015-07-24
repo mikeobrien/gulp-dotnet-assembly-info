@@ -38,5 +38,9 @@ gulp.task('assemblyInfo', function() {
 });
 ```
 
+## Props
+
+Thanks to [Diego Luces](https://github.com/dluces) for adding VB.NET support.
+
 ## License
 MIT License
