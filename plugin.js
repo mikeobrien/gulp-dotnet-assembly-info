@@ -33,7 +33,7 @@ function assemblyInfo(config) {
 
             attributes.forEach(function(attribute) {
                 var attributeName = 'Assembly' + capitalize(attribute);
-                var regex = new RegExp('(\\[\\s*?assembly\\s*\\:\\s*' + attributeName + '\\s*\\(\\s*\\")(.*?)(\\"\\s*\\)\\s*\\])', 'g');
+                var regex = new RegExp('([\\[<]\\s*?[aA]ssembly\\s*\\:\\s*' + attributeName + '\\s*\\(\\s*\\")(.*?)(\\"\\s*\\)\\s*[\\]>])', 'g');
                 var replacement = config[attribute];
                 assemblyInfo = assemblyInfo.replace(regex, function(match, p1, p2, p3) {
                     var value = replacement instanceof Function ? replacement(p2) : replacement;

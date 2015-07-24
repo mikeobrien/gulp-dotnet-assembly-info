@@ -6,22 +6,34 @@ var expect = require('expect.js'),
 
 describe('gulp-dotnet-assembly-info', function() {
 
-    var assemblyInfoTemplate = Handlebars.compile(
+    var csAssemblyInfoTemplate = Handlebars.compile(
         'using System.Reflection;\r\n\r\n' +
         '// General Information about an assembly is controlled through the following \r\n\r\n' +
         '[   assembly   :   AssemblyTitle  (   "{{title}}" )  ]\r\n' +
         '[assembly:AssemblyDescription("{{description}}")]');
+    var vbAssemblyInfoTemplate = Handlebars.compile(
+        'Imports System.Reflection;\r\n\r\n' +
+        '// General Information about an assembly is controlled through the following \r\n\r\n' +
+        '<   assembly   :   AssemblyTitle  (   "{{title}}" )  >\r\n' +
+        '<Assembly:AssemblyDescription("{{description}}")>');
     var defaultTitle = 'some title';
     var defaultDescription = 'some description';
     var defaultAssemblyInfoFilePath = '/Solution/Project/Project.csproj';
-    var defaultAssemblyInfoFile = assemblyInfoTemplate(
+    var csAssemblyInfoFile = csAssemblyInfoTemplate(
             { title: defaultTitle, description: defaultDescription });
-    var assemblyInfoFile;
+    var vbAssemblyInfoFile = vbAssemblyInfoTemplate(
+            { title: defaultTitle, description: defaultDescription });
+    var csAssemblyInfo, vbAssemblyInfo;
 
     beforeEach(function() {
-        assemblyInfoFile = new File({
+        csAssemblyInfo = new File({
             path: defaultAssemblyInfoFilePath,
-            contents: new Buffer(defaultAssemblyInfoFile)
+            contents: new Buffer(csAssemblyInfoFile)
+        });
+
+        vbAssemblyInfo = new File({
+            path: defaultAssemblyInfoFilePath,
+            contents: new Buffer(vbAssemblyInfoFile)
         });
     });
 
@@ -45,30 +57,60 @@ describe('gulp-dotnet-assembly-info', function() {
 
     });
 
-    it('should replace strings', function(done) {
+    it('should replace C# strings', function(done) {
 
         var info = assemblyInfo({ title: 'another title' });
 
-        info.write(assemblyInfoFile);
+        info.write(csAssemblyInfo);
 
         info.once('data', function(file) {
             expect(file.isBuffer()).to.be(true);
-            expect(file.contents.toString('utf8')).to.be(assemblyInfoTemplate(
+            expect(file.contents.toString('utf8')).to.be(csAssemblyInfoTemplate(
                 { title: 'another title', description: defaultDescription }));
             done();
         });
 
     });
 
-    it('should replace function results', function(done) {
+    it('should replace VB strings', function(done) {
 
-        var info = assemblyInfo({ description: function(value) { return value + ' and another'; }});
+        var info = assemblyInfo({ title: 'another title' });
 
-        info.write(assemblyInfoFile);
+        info.write(vbAssemblyInfo);
 
         info.once('data', function(file) {
             expect(file.isBuffer()).to.be(true);
-            expect(file.contents.toString('utf8')).to.be(assemblyInfoTemplate(
+            expect(file.contents.toString('utf8')).to.be(vbAssemblyInfoTemplate(
+                { title: 'another title', description: defaultDescription }));
+            done();
+        });
+
+    });
+
+    it('should replace function results for C#', function(done) {
+
+        var info = assemblyInfo({ description: function(value) { return value + ' and another'; }});
+
+        info.write(csAssemblyInfo);
+
+        info.once('data', function(file) {
+            expect(file.isBuffer()).to.be(true);
+            expect(file.contents.toString('utf8')).to.be(csAssemblyInfoTemplate(
+                { title: defaultTitle, description: 'some description and another' }));
+            done();
+        });
+
+    });
+
+    it('should replace function results for VB', function(done) {
+
+        var info = assemblyInfo({ description: function(value) { return value + ' and another'; }});
+
+        info.write(vbAssemblyInfo);
+
+        info.once('data', function(file) {
+            expect(file.isBuffer()).to.be(true);
+            expect(file.contents.toString('utf8')).to.be(vbAssemblyInfoTemplate(
                 { title: defaultTitle, description: 'some description and another' }));
             done();
         });
