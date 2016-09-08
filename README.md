@@ -38,6 +38,23 @@ gulp.task('assemblyInfo', function() {
 });
 ```
 
+You can also use the plugin to read the data from assembly info file:
+
+```js
+var gulp = require('gulp'),
+     fs = require('fs'),
+    assemblyInfo = require('gulp-dotnet-assembly-info');
+
+gulp.task('readAssemblyInfo', function () {
+
+    var assemblyInfoFileContents = fs.readFileSync('./properties/AssemblyInfo.cs', "utf8");
+    var assembly = assemblyInfo.getAssemblyMetadata(assemblyInfoFileContents);
+    console.log("Current version is: " + assembly.AssemblyVersion);
+    
+});
+
+```
+
 ## Props
 
 Thanks to [Diego Luces](https://github.com/dluces) for adding VB.NET support.

@@ -10,12 +10,20 @@ describe('gulp-dotnet-assembly-info', function() {
         'using System.Reflection;\r\n\r\n' +
         '// General Information about an assembly is controlled through the following \r\n\r\n' +
         '[   assembly   :   AssemblyTitle  (   "{{title}}" )  ]\r\n' +
-        '[assembly:AssemblyDescription("{{description}}")]');
+        '[assembly:AssemblyDescription("{{description}}")]\r\n' +
+        '// Commented out entries should be ignored:\r\n' +
+        '// [assembly: AssemblyConfiguration("")]\r\n' +
+        '[assembly: ComVisible(false)]'
+        );
     var vbAssemblyInfoTemplate = Handlebars.compile(
         'Imports System.Reflection;\r\n\r\n' +
         '// General Information about an assembly is controlled through the following \r\n\r\n' +
         '<   assembly   :   AssemblyTitle  (   "{{title}}" )  >\r\n' +
-        '<Assembly:AssemblyDescription("{{description}}")>');
+        '<Assembly:AssemblyDescription("{{description}}")>\r\n' + 
+        '\' Commented out entries should be ignored:\r\n' +
+        '\' <Assembly: AssemblyConfiguration("")>\r\n' +
+        '<Assembly: ComVisible(False)>'
+        );
     var defaultTitle = 'some title';
     var defaultDescription = 'some description';
     var defaultAssemblyInfoFilePath = '/Solution/Project/Project.csproj';
@@ -117,4 +125,29 @@ describe('gulp-dotnet-assembly-info', function() {
 
     });
 
+    it('should read C# assembly info file', function(done) {
+
+        var info = assemblyInfo.getAssemblyMetadata(csAssemblyInfo.contents)
+
+        console.log(info);
+        expect(info).to.be.an('object');
+        expect(info).to.have.property('AssemblyTitle', defaultTitle)
+        expect(info).to.have.property('AssemblyDescription', defaultDescription)
+        expect(info).to.have.property('ComVisible', false)
+        expect(info).to.not.have.property('AssemblyConfiguration')
+        done();
+    });
+    
+    it('should read VB assembly info file', function(done) {
+
+        var info = assemblyInfo.getAssemblyMetadata(vbAssemblyInfo.contents)
+
+        console.log(info);
+        expect(info).to.be.an('object');
+        expect(info).to.have.property('AssemblyTitle', defaultTitle)
+        expect(info).to.have.property('AssemblyDescription', defaultDescription)
+        expect(info).to.have.property('ComVisible', false)
+        expect(info).to.not.have.property('AssemblyConfiguration')
+        done();
+    });
 });

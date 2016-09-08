@@ -1,5 +1,6 @@
 var through = require('through2'),
     gulp = require('gulp-util'),
+    fs = require('fs'),
     PluginError = gulp.PluginError;
 
 var PLUGIN_NAME = 'gulp-dotnet-assembly-info';
@@ -52,4 +53,38 @@ function assemblyInfo(config) {
     return stream;
 }
 
+assemblyInfo.getAssemblyMetadataFromFileSync = function(filePath){
+    
+    var assemblyInfoFileContent = fs.readFileSync(filepath, "utf8");
+
+    return assemblyInfo.getAssemblyMetadata(assemblyInfoFileContent)
+}
+
+assemblyInfo.getAssemblyMetadata = function(assemblyInfoFileContent){
+    
+    var regex = new RegExp('^\\s*[\\[<]\\s*[aA]ssembly\\s*:\\s*(\\s*[a-zA-Z][^(\\s]+)\\s*\\(\\s*([^)]+)\\s*\\)\\s*[\\]>]', 'gm');
+
+    var regex = /^\s*[\[<]\s*[aA]ssembly\s*:\s*(\s*[a-zA-Z][^(\s]+)\s*\(\s*([^)]+)\s*\)\s*[\]>]/gm;
+        
+    var output = {};
+    while ((m = regex.exec(assemblyInfoFileContent)) !== null) {
+        if (m.index === regex.lastIndex) {
+            regex.lastIndex++;
+        }
+        var value = m[2].trim();
+        
+        if(value.toLowerCase() === 'true'){
+            value = true;
+        }
+        else if(value.toLowerCase()  === 'false'){ 
+            value = false;
+        }
+        else if (value.charAt(0) === '"' && value.charAt(value.length - 1) === '"'){
+            value = value.substr(1, value.length -2);
+        }
+        
+        output[m[1]] = value;
+    }
+    return output;
+}
 module.exports = assemblyInfo;
