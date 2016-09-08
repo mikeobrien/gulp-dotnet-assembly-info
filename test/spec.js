@@ -129,7 +129,6 @@ describe('gulp-dotnet-assembly-info', function() {
 
         var info = assemblyInfo.getAssemblyMetadata(csAssemblyInfo.contents)
 
-        console.log(info);
         expect(info).to.be.an('object');
         expect(info).to.have.property('AssemblyTitle', defaultTitle)
         expect(info).to.have.property('AssemblyDescription', defaultDescription)
@@ -142,7 +141,6 @@ describe('gulp-dotnet-assembly-info', function() {
 
         var info = assemblyInfo.getAssemblyMetadata(vbAssemblyInfo.contents)
 
-        console.log(info);
         expect(info).to.be.an('object');
         expect(info).to.have.property('AssemblyTitle', defaultTitle)
         expect(info).to.have.property('AssemblyDescription', defaultDescription)
